@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+    
+    <script>
+        var pick = ["R", "P", "S"];
+
+        alert("Lets Play Rock, Paper, Scissors");
+
+        document.onkeyup = function(event) {
+            var playerPick = event.key;
+                playerPick = playerPick.toUpperCase();
+
+            var scoreBoardWins   = document.getElementById("wins");
+            var scoreBoardLosses = document.getElementById("losses");
+            var updateComments = document.getElementById("comments");
+            var udpateResult  = document.getElementById("result");
+            var updateScore;
+            var comments;
+            
+
+            if(playerPick==="R" || playerPick==="P" || playerPick==="S") {
+                var computerPick = Math.random() * 3 ;
+                computerPick = Math.floor(computerPick);
+                console.log ("Computer: ", pick[computerPick]);
+                console.log ("Player:   ", playerPick);
+                
+                comments = "Player: " +  playerPick +  "    Computer: " + pick[computerPick];
+
+                // START of comparing result ----------------------
+                //check for win 3 conditions
+                if((playerPick==='R' && pick[computerPick]==='S') ||
+                   (playerPick==='P' && pick[computerPick]==='R') ||
+                   (playerPick==='S' && pick[computerPick]==='P'))     {
+                    
+                    updateComments.textContent = comments;
+                    udpateResult.textContent   = "YOU WON";
+                    udpateResult.style.color = "green";
+                    
+                    updateScore = parseInt(scoreBoardWins.textContent);
+                    updateScore++;
+                    scoreBoardWins.textContent = updateScore;
+
+                //check for draw condition
+                } else if(playerPick===pick[computerPick]) {
+                    updateComments.textContent = comments;
+                    udpateResult.textContent   = "IT'S A DRAW";
+                    udpateResult.style.color   = "gray";
+
+                //else you lose    
+                } else {
+                    updateComments.textContent = comments;
+                    udpateResult.textContent   = "YOU LOST";
+                    udpateResult.style.color   = "red";
+
+                    console.log("LOSE ", scoreBoardLosses.textContent);
+
+                    updateScore = parseInt(scoreBoardLosses.textContent);
+                    updateScore++;
+                    scoreBoardLosses.textContent = updateScore;
+                }
+                //END of comparing result --------------------
+
+            } else {
+                updateComments.textContent = "That is not a valid choice. Press R, P or S."
+                updateComments.style.color = "red";
+                udpateResult.textContent   = "";
+            }
+
+        }
+        
+   </script>
+
+   <h1>ROCK PAPER SCISSORS</h1>
+   <h1>WINS: <span id="wins"> 0 </span></h1>
+   <h1>LOSSES: <span id="losses"> 0 </span></h1>
+   <h1 id="comments">Press R, P, S</h1>
+   <h1 id="result"></h1>
+</body>
+</html>
